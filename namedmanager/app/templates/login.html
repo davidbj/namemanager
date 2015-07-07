@@ -1,0 +1,37 @@
+{% extends  'base.html' %}
+<html lang="zh-CN">
+    {%block head%}
+        {{block.super}}   
+        <link rel="stylesheet" href="{{STATIC_URL}}css/signin.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/backstretch.css">
+        <!--
+        <script src="{{STATIC_URL}}js/ie-emulation-modes-warning.js"></script>
+        -->
+        <script src="{{STATIC_URL}}js/jquery.backstretch.min.js"></script>
+    {%endblock%}
+
+    {% block body%}
+        <div class="container">
+           <form class="form-signin" method="post" action="">{%csrf_token%}
+             <h2 class="form-signin-heading">请登入</h2>
+             <label for="inputEmail" class="sr-only">LDAP Login</label>
+             <input type="text" id="inputEmail" class="form-control" placeholder="LDAP Login" required autofocus name="username">
+             <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+           </form>
+
+        </div> <!-- /container -->
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{STATIC_URL}}js/ie10-viewport-bug-workaround.js"></script>
+        
+        <script>
+            $(function(){
+                $(".container").css({ opacity: .8 });   //设置透明度
+                $.backstretch(["../static/imgs/bg.jpg", "../static/imgs/cc.jpg", "../static/imgs/c1.jpg"]);  //背景
+                $(".other").backstretch(["../static/imgs/cc.jpg","../static/imgs/bg.jpg"],{duration:4000});  //元素背景，切换现实
+            });  
+        </script>
+    {%endblock%}
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    {% block head %}
+       <meta charset="utf-8">                                                                              
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <meta name="description" content="">
+       <meta name="author" content="">
+       <link rel="icon" href="../static/imgs/favicon.ico">
+       <title>DNS管理系统</title>  
+       
+       <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+       <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+       <script src="{{STATIC_URL}}js/ie-emulation-modes-warning.js"></script>
+    {% endblock %}
+     </head>
+     <body>
+    {% block body %}    
+        {%block navbar%}
+              <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/main.html">Dashboard</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">域名管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      {%for v in domain_ld%}
+                      <li><a href="/records.html?domain={{v}}">{{v}}</a></li>
+                      {%endfor%}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="/logs.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">查看日志<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      {%for v in domain_ld%}
+                      <li><a href="/logs.html?domain={{v}}">{{v}}</a></li>
+                      {%endfor%}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">用户管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="/user.html">用户管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="/logout.html">退出</a></li>
+              </ul>
+              </div> 
+        {%endblock%}
+
+        {%block menu%}
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                {%if status == '0'%}
+                    <li class="active"><a href="/main.html">全部域名 <span class="sr-only">(current)</span></a></li>
+                {%else%}
+                    <li><a href="/main.html">全部域名 <span class="sr-only">(current)</span></a></li>
+                {%endif%}
+
+                {%if log_status == '0'%}
+                    <li class="active"><a href="/logs.html">查看日志</a></li>
+                {%else%}
+                    <li><a href="/logs.html">查看日志</a></li>
+                {%endif%}
+
+                {%if user_status == '0'%}
+                    <li class="active"><a href="/user.html">用户管理</a></li>
+                {%else%}
+                    <li><a href="/user.html">用户管理</a></li>
+                {%endif%}
+                </ul>
+            </div>
+        {%endblock%}
+    {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,114 @@
+{% extends  'base.html' %}
+<html>
+    {% block head %}
+        {{block.super}}
+        <link href="{{STATIC_URL}}css/dashboard.css" rel="stylesheet">
+    {%endblock%}
+    
+    {%block body%}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">DNS管理系统</a>
+        </div>
+        {%block navbar%}
+            {{block.super}}
+        {%endblock%}
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        {%block menu%}
+            {{block.super}}
+        {%endblock%}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">域名管理</h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th colspan="5">全部域名</th>
+                </tr>
+                {%if pid in pms%}
+                <tr>
+                  <th><button class="btn btn-success" id="add_domain">增加域名</button></th>
+                </tr>
+                {%endif%}
+              </thead>
+              <tbody id='tbody'>
+                {%for v in domain_ld%}
+                <tr class="inner">
+                  <td style="width:10px;" align="center">
+                    <input type="checkbox" name="">
+                  </td>
+                  <td colspan="5" align="left"><a href="/records.html?domain={{v}}">{{v}}</a></td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    -->
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{{STATIC_URL}}js/holder.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{STATIC_URL}}js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#add_domain").click(function(){
+                $('<tr><td colspan="2"><input type="text" placeholder="请输入您要解析的域名">   <button  class="btn btn-success qd">确定</button> <button class="btn qx">取消</button></td></tr>').insertBefore($('.inner')[0])
+            })
+        });
+    </script>
+    <script>
+        $(function(){
+            $("#tbody").on("click",".qx", function(){
+                $(this).parent().parent().remove();
+                
+            });
+        });
+
+        $(function(){
+            $("#tbody").on("click",".qd", function(){
+                domain = $(this).parent().find('input').val();
+                $.ajax({
+                    url: '/adddomain.html',
+                    type: 'get',
+                    dataType: 'json',
+                    data:{'domain': domain},
+                    success: function(data){
+                        if(data['status'] == '200'){
+                            alert('域名添加成功');location.replace('/main.html');
+                        }else if(data['status'] == '500'){
+                            alert('域名添加失败');
+                        }
+                    },
+                    error: function(){
+                        alert('添加失败!'); 
+                    },
+                    complete: function(){
+                        //alert('ok2');
+                    }
+                });    
+            });
+        });
+    </script>
+    {%endblock%}
+</html>
