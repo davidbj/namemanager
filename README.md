@@ -11,25 +11,23 @@
 * pdns 及 pdns-recursor 配置管理
     * pdns 配置文件  
     `vim /etc/pdns/pdns.conf`
-    
-    setuid=pdns   
-    setgid=pdns  
-    launch=bind  
-    recursor=127.0.0.1:5300     `recursor监听ip:port`    
-    soa-refresh-default=7200  
-    launch=gmysql              
-    gmysql-host=`x.x.x.x`       `#mysql的地址`  
-    gmysql-user=db_manager      `#连接mysql的用户名`   
-    gmysql-password=`password`   
-    gmysql-dbname=powerdns     
+        setuid=pdns   
+        setgid=pdns  
+        launch=bind  
+        recursor=127.0.0.1:5300     `recursor监听ip:port`    
+        soa-refresh-default=7200  
+        launch=gmysql              
+        gmysql-host=`x.x.x.x`       `#mysql的地址`  
+        gmysql-user=db_manager      `#连接mysql的用户名`   
+        gmysql-password=`password`   
+        gmysql-dbname=powerdns     
 
     * pdns-recursor 配置文件   
     `vim /etc/pdns-recursor/recursor.conf`
-    
-    setuid=pdns-recursor   
-    setgid=pdns-recursor  
-    forward-zones=david.com=172.16.10.206   `#访问*.david.com domain record的转发至172.16.10.206 这台dns Server.`  
-    local-port=5300        
+        setuid=pdns-recursor   
+        setgid=pdns-recursor  
+        forward-zones=david.com=172.16.10.206   `#访问*.david.com domain record的转发至172.16.10.206 这台dns Server.`  
+        local-port=5300        
     
     
 * 启动服务   
@@ -66,22 +64,22 @@
     `详件namedmanager目录下uwsgi.ini配置文件`
 
 * Django需要的第三方插件
-  backports.ssl-match-hostname==3.4.0.2   
-  configobj==4.7.2   
-  decorator==3.4.0   
-  iniparse==0.4    
-  pycurl==7.19.0  
-  pygobject==3.8.2  
-  pygpgme==0.3  
-  pyliblzma==0.5.3  
-  pyudev==0.15  
-  pyxattr==0.5.1  
-  slip==0.4.0  
-  slip.dbus==0.4.0  
-  urlgrabber==3.10  
-  virtualenv==12.0.7  
-  wsgiref==0.1.2  
-  yum-metadata-parser==1.1.4  
+    backports.ssl-match-hostname==3.4.0.2   
+    configobj==4.7.2   
+    decorator==3.4.0   
+    iniparse==0.4    
+    pycurl==7.19.0  
+    pygobject==3.8.2  
+    pygpgme==0.3  
+    pyliblzma==0.5.3  
+    pyudev==0.15  
+    pyxattr==0.5.1  
+    slip==0.4.0  
+    slip.dbus==0.4.0  
+    urlgrabber==3.10  
+    virtualenv==12.0.7  
+    wsgiref==0.1.2  
+    yum-metadata-parser==1.1.4  
 * 启动服务
   `启动uwsgi`
   cd /data/namedmanager && uwsgi named_uwsgi.ini
