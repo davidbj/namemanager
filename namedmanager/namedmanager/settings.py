@@ -63,11 +63,11 @@ WSGI_APPLICATION = 'namedmanager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '10.254.8.113',
+        'HOST': 'x.x.x.x',
         'PORT': '3306',
         'NAME': 'powerdns',
-        'USER': 'db_manager',
-        'PASSWORD': 'shao@zhi_123'
+        'USER': 'xxxxxx',
+        'PASSWORD': 'xxxxx'
     }
 }
 
